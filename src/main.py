@@ -1,45 +1,23 @@
-# from watchdog.observers import Observer
-# from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 import sys
-import shutil
-import os
 import argparse
 from datetime import datetime
 import json
+import time
+from utils import *
 
-# class MyHandler(FileSystemEventHandler):
-#     def on_modified(self, event):
-#         for filename in os.listdir(folder_to_track):
-#             if filename.lower().endswith('.json'):
-#                 source_file_name = folder_to_track + '/' + filename
-#                 destination_file_name = folder_for_json + '/' + filename
-#                 os.rename(source_file_name, destination_file_name)
+class MyHandler(FileSystemEventHandler):
 
-def check_folder_exists(new_file_folder):
-    return os.path.isdir(new_file_folder)
+    def __init__(self, folder_to_track, new_file_folder, extention_dict):
+        self.folder_to_track = folder_to_track
+        self.new_file_folder = new_file_folder
+        self.extention_dict = extention_dict
+        move_files(folder_to_track=self.folder_to_track, new_file_folder=self.new_file_folder, extention_dict=self.extention_dict)
 
-
-def move_files(folder_to_track, new_file_folder, extention_dict):
-    file_extension_found = False
-    if not check_folder_exists(new_file_folder):
-        os.mkdir(new_file_folder)
-    for filename in os.listdir(folder_to_track):
-        source_file_name = folder_to_track + '/' + filename
-        sub_folder = new_file_folder
-        if os.path.isfile(source_file_name):
-            name, file_ext = os.path.splitext(source_file_name)
-            for folder_name in extention_dict:
-                if file_ext[1:] in extention_dict[folder_name]:
-                    sub_folder = sub_folder + '/' + folder_name
-                    if not check_folder_exists(sub_folder):
-                        os.mkdir(sub_folder)
-                    shutil.copy(source_file_name, sub_folder)
-                    file_extension_found = True
-            if not file_extension_found:
-                sub_folder = sub_folder + '/others'
-                if not check_folder_exists(sub_folder):
-                    os.mkdir(sub_folder)
-                shutil.copy(source_file_name, sub_folder)
+    def on_modified(self, event):
+        move_files(folder_to_track, self.new_file_folder, self.extention_dict)
+        #         os.rename(source_file_name, destination_file_name)
 
 if __name__ == "__main__":
 
@@ -63,4 +41,14 @@ if __name__ == "__main__":
             sys.exit(1)
         new_file_folder = folder_to_track + '/' + "organised" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-    move_files(folder_to_track=folder_to_track, new_file_folder=new_file_folder, extention_dict=extention_dict)
+    event_handler = MyHandler(folder_to_track, new_file_folder, extention_dict)
+    observer = Observer()
+    observer.schedule(event_handler, folder_to_track, recursive=True)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(10)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()

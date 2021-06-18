@@ -1,7 +1,22 @@
 {
-    "Image": ["jpg", "jpx", "png", "gif", "webp", "cr2", "tif", "bmp", "jxr", "psd", "ico", "heic"],
-    "Video": ["mp4 ", "m4v ", "mkv ", "webm ", "mov ", "avi ", "wmv ", "mpg ", "flv "],
-    "Audio": ["mid", "mp3", "m4a", "ogg", "flac", "wav", "amr"],
-    "Archive": ["epub", "zip", "tar", "rar", "gz", "bz2", "7z", "xz", "exe", "swf", "rtf", "eot", "ps", "sqlite", "nes", "crx", "cab", "deb", "ar", "Z", "lz"],
-    "file": ["json", "csv", "xml", "doc", "text", "txt", "xlsx", "pdf", "aspx"]
+    "Image":    {
+                    "subFolder": "false",
+                    "extensions": ["jpg", "jpx", "png", "gif", "webp", "cr2", "tif", "bmp", "jxr", "psd", "ico", "heic"]
+                },
+    "Video":    {
+                    "subFolder": "false",
+                    "extensions": ["mp4 ", "m4v ", "mkv ", "webm ", "mov ", "avi ", "wmv ", "mpg ", "flv "]
+                },
+    "Audio":    {
+                    "subFolder": "false",
+                    "extensions": ["mid", "mp3", "m4a", "ogg", "flac", "wav", "amr"]
+                },
+    "Archive":  {
+                    "subFolder": "false",
+                    "extensions": ["epub", "zip", "tar", "rar", "gz", "bz2", "7z", "xz", "exe", "swf", "rtf", "eot", "ps", "sqlite", "nes", "crx", "cab", "deb", "ar", "Z", "lz"]
+                },
+    "file":    {
+                    "subFolder": "true",
+                    "extensions": ["json", "csv", "xml", "doc", "text", "txt", "xlsx", "pdf", "aspx"]
+                }
 }
