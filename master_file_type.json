@@ -5,7 +5,7 @@
                 },
     "Video":    {
                     "subFolder": "false",
-                    "extensions": ["mp4 ", "m4v ", "mkv ", "webm ", "mov ", "avi ", "wmv ", "mpg ", "flv "]
+                    "extensions": ["mp4 ", "m4v ", "mkv ", "webm ", "mov ", "avi ", "wmv ", "mpg ", "flv"]
                 },
     "Audio":    {
                     "subFolder": "false",
@@ -15,7 +15,7 @@
                     "subFolder": "false",
                     "extensions": ["epub", "zip", "tar", "rar", "gz", "bz2", "7z", "xz", "exe", "swf", "rtf", "eot", "ps", "sqlite", "nes", "crx", "cab", "deb", "ar", "Z", "lz"]
                 },
-    "file":    {
+    "File":    {
                     "subFolder": "true",
                     "extensions": ["json", "csv", "xml", "doc", "text", "txt", "xlsx", "pdf", "aspx"]
                 }
