@@ -6,6 +6,8 @@ from datetime import datetime
 import json
 import time
 from utils import *
+import platform
+
 
 class MyHandler(FileSystemEventHandler):
 
@@ -13,11 +15,13 @@ class MyHandler(FileSystemEventHandler):
         self.folder_to_track = folder_to_track
         self.new_file_folder = new_file_folder
         self.extention_dict = extention_dict
-        move_files(folder_to_track=self.folder_to_track, new_file_folder=self.new_file_folder, extention_dict=self.extention_dict)
+        move_files(folder_to_track=self.folder_to_track, new_file_folder=self.new_file_folder,
+                   extention_dict=self.extention_dict)
 
     def on_modified(self, event):
         move_files(folder_to_track, self.new_file_folder, self.extention_dict)
         #         os.rename(source_file_name, destination_file_name)
+
 
 if __name__ == "__main__":
 
@@ -39,7 +43,9 @@ if __name__ == "__main__":
         if not check_folder_exists(folder_to_track):
             print("Either folder does not exist or it's an invalide folder path, please try again")
             sys.exit(1)
-        new_file_folder = folder_to_track + '/' + "organised" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        new_file_folder = folder_to_track + '/' + "organised" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S") \
+            if platform.system() != "Windows" \
+            else folder_to_track + '\\' + "organised" + "_" + datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
     event_handler = MyHandler(folder_to_track, new_file_folder, extention_dict)
     observer = Observer()
