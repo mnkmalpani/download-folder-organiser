@@ -5,3 +5,6 @@
 setup_standard_version:
 	# setting up the standard-version package, which is used to version releases and the CHANGELOG.md
 	./bin/setup-standard-version.sh
+
+release:
+	npx standard-version
